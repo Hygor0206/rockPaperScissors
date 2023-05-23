@@ -52,8 +52,8 @@ function playRound(choice){
 }
 
 function game(){
+    console.log("Lets play more 5 times :D\n");
     for (let i = 0; i <= 4; i++) {
-        console.log("Lets play more 5 times :D\n");
         console.log((i+1)+"º time\n")
         playRound(playerChoice);
     }
