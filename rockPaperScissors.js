@@ -12,7 +12,8 @@ function playRound(choice){
     let computerSelection=getComputerChoice();
 
     if(choice!=="ROCK"&&choice!=="PAPER"&&choice!=="SCISSORS"){
-        return alert("Not a valid choice! Thats an end game :(");
+        alert("Not a valid choice! Thats an end game :(");
+        return console.log("You have typed wrong :(");
     }
     switch(choice){
         case "ROCK":
