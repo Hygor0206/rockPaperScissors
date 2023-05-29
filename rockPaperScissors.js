@@ -1,64 +1,94 @@
-const alternatives = ["rock", "paper", "scissors"];
-let playerChoice;
+const alternatives = ["ROCK", "PAPER", "SCISSORS"],
+      machineChoice = document.querySelector('#machine-choice'),  
+      playerChoice = document.querySelector('#player-choice'),
+      result = document.querySelector('#result'),
+      buttons = document.querySelectorAll('.btn'),
+      playerScore = document.querySelector('#player-score'),
+      machineScore = document.querySelector('#machine-score'),
+      restart = document.querySelector('#restart');
+let inputChoice, pScore=0, mScore=0;
+restart.style.display="none";
+
+buttons.forEach(button => {
+    button.addEventListener('click', (event) =>{
+        inputChoice = event.target.value.toUpperCase();
+        playRound(inputChoice);
+    });
+});
 
 function getComputerChoice(){
     return Math.floor(Math.random() * 3);
 }
-            
+
+function endGame(){
+    buttons.forEach(button => {
+        button.disabled=true;
+    });
+    pScore > mScore ? result.textContent="Player Wins" : result.textContent="Machine Wins";
+    machineChoice.style.display="none";
+    playerChoice.style.display="none";
+}
+
 function playRound(choice){
-    choice = prompt("Type your choice: \n"+
-    "Rock, Paper or Scissors").toUpperCase();
-
-    let computerSelection=getComputerChoice();
-
-    if(choice!=="ROCK"&&choice!=="PAPER"&&choice!=="SCISSORS"){
-        alert("Not a valid choice! Thats an end game :(");
-        return console.log("You have typed wrong :(");
+    let machineSelection=getComputerChoice();
+    console.log(alternatives[machineSelection]);
+    console.log(choice)
+    machineChoice.textContent = "Machine: "+alternatives[machineSelection];
+    playerChoice.textContent = "Player: "+ choice;
+    
+    if(choice==alternatives[machineSelection]){
+        return result.textContent="DRAW";
     }
+    
+
     switch(choice){
         case "ROCK":
-            if(computerSelection==1){
-                return console.log("Machine: "+alternatives[computerSelection]+"\n"
-                                +"Player: "+alternatives[0]+"\n"
-                                +"You have lost the game :(\n");
+            if(machineSelection==2){ // Win
+                pScore++;
+                playerScore.textContent="Player Score: "+pScore;
+                result.textContent = "WIN";
+                if(pScore==5) endGame();
+                break;
             }
-            if(computerSelection==2){
-                return console.log("Machine: "+alternatives[computerSelection]+"\n"
-                                +"Player: "+alternatives[0]+"\n"
-                                +"You have win the game :D\n");
+            if(machineSelection==1){ // lose
+                mScore++;
+                machineScore.textContent="Machine Score: "+mScore;
+                result.textContent = "LOSE";
+                if(mScore==5) endGame();
+                break;
             }
         case "PAPER":
-            if(computerSelection==2){
-                return console.log("Machine: "+alternatives[computerSelection]+"\n"
-                                +"Player: "+alternatives[1]+"\n"
-                                +"You have lost the game :(\n");
+            if(machineSelection==0){ // Win
+                pScore++;
+                playerScore.textContent="Player Score: "+pScore;
+                result.textContent = "WIN";
+                if(pScore==5) endGame();
+                break;
             }
-            if(computerSelection==0){
-                return console.log("Machine: "+alternatives[computerSelection]+"\n"
-                                +"Player: "+alternatives[1]+"\n"
-                                +"You have win the game :D\n");
+            if(machineSelection==2){ // lose
+                mScore++;
+                machineScore.textContent="Machine Score: "+mScore;
+                result.textContent = "LOSE";
+                if(mScore==5) endGame();
+                break;
             }
         case "SCISSORS":
-            if(computerSelection==0){
-                return console.log("Machine: "+alternatives[computerSelection]+"\n"
-                                +"Player: "+alternatives[2]+"\n"
-                                +"You have lost the game :(\n");
+            if(machineSelection==1){ // Win
+                pScore++;
+                playerScore.textContent="Player Score: "+pScore;
+                result.textContent = "WIN";
+                if(pScore==5) endGame();
+                break;
             }
-            if(computerSelection==1){
-                return console.log("Machine: "+alternatives[computerSelection]+"\n"
-                                +"Player: "+alternatives[2]+"\n"
-                                +"You have win the game :D\n");
+            if(machineSelection==0){ // lose
+                mScore++;
+                machineScore.textContent="Machine Score: "+mScore;
+                result.textContent = "LOSE";
+                if(mScore==5) endGame();
+                break;
             }
     }
 }
 
-function game(){
-    console.log("Lets play more 5 times :D\n");
-    for (let i = 0; i <= 4; i++) {
-        console.log((i+1)+"º time\n")
-        playRound(playerChoice);
-    }
-}
 
-playRound(playerChoice);
-game();
+
